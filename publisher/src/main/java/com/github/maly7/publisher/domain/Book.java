@@ -1,7 +1,9 @@
 package com.github.maly7.publisher.domain;
 
+import com.github.maly7.publisher.event.BookEvent;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.data.domain.DomainEvents;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -53,6 +55,11 @@ public class Book {
 
     public void setLabels(Set<Label> labels) {
         this.labels = labels;
+    }
+
+    @DomainEvents
+    public BookEvent domainEvent() {
+        return new BookEvent(this.id);
     }
 
     @Override
