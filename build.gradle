@@ -1,14 +1,29 @@
-group 'com.github.maly7'
-version '1.0-SNAPSHOT'
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
 
-apply plugin: 'java'
+    repositories {
+        jcenter()
+    }
 
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+allprojects {
+    group 'com.github.maly7'
+    version '1.0-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        jcenter()
+    }
 }
