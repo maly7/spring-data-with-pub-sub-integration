@@ -9,8 +9,7 @@ public class BookEventListener {
     private static final Logger LOG = LoggerFactory.getLogger(BookEventListener.class);
 
     @EventListener
-    public BookEvent handleBookEvent(BookEvent bookEvent) {
+    public void handleBookEvent(BookEvent bookEvent) {
         LOG.info("Received Book Event: [{}]", bookEvent);
-        return bookEvent;
     }
 }
