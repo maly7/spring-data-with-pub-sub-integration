@@ -1,3 +1,9 @@
 server:
   port: 8083
   context-path: /subscriber
+spring:
+  activemq:
+    in-memory: false
+    packages:
+      trust-all: true
+    broker-url: vm://localhost?broker.persistent=false

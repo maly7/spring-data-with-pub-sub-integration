@@ -5,6 +5,12 @@ endpoints:
   actuator:
     enabled: true
     sensitive: false
+  configprops:
+    sensitive: false
+  beans:
+    sensitive: false
+  env:
+    sensitive: false
 
 spring:
   datasource:
