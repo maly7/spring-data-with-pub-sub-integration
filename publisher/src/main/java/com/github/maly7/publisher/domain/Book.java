@@ -59,7 +59,7 @@ public class Book {
 
     @DomainEvents
     public BookEvent domainEvent() {
-        return new BookEvent(this.id);
+        return new BookEvent(this);
     }
 
     @Override
