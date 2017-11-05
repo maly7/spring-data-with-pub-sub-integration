@@ -32,6 +32,7 @@ public class BookEventListener {
     public void handleBookEvent(BookEvent bookEvent) {
         LOG.info("Received Book Event: [{}]", bookEvent);
         jmsTemplate.convertAndSend("bookEvents", bookEvent.getSource());
+        counter.incrementAndGet();
     }
 
     public static AtomicInteger getCounter() {
