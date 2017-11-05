@@ -31,4 +31,6 @@ public class MessagingConfig {
                 .channel(bookIngestChannel())
                 .get();
     }
+
+    // For Error Routing See: https://jira.spring.io/browse/INT-4265
 }

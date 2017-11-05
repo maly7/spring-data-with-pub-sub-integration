@@ -2,10 +2,11 @@ package com.github.maly7.publisher.event;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.messaging.Message;
 
 public class BookEvent extends ApplicationEvent {
 
-    public BookEvent(Object source) {
+    public BookEvent(Message<String> source) {
         super(source);
     }
 

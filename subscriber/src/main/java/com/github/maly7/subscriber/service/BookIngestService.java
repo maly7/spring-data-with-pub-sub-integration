@@ -10,7 +10,7 @@ public class BookIngestService {
     private static final Logger LOG = LoggerFactory.getLogger(BookIngestService.class);
 
     @ServiceActivator(inputChannel = "bookIngestChannel")
-    public void ingestBook(Object book) {
+    public void ingestBook(String book) {
         LOG.info("Received Book: [{}]", book);
     }
 }

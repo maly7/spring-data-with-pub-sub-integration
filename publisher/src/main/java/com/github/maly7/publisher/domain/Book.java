@@ -5,8 +5,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.domain.DomainEvents;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.GenericMessage;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -60,7 +64,10 @@ public class Book {
 
     @DomainEvents
     public BookEvent domainEvent() {
-        return new BookEvent(this);
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("EventType", "UPDATE");
+        MessageHeaders messageHeaders = new MessageHeaders(headers);
+        return new BookEvent(new GenericMessage<>(String.valueOf(this.id), messageHeaders));
     }
 
     @Override
