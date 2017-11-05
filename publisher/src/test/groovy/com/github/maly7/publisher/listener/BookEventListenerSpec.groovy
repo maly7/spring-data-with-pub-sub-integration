@@ -19,6 +19,6 @@ class BookEventListenerSpec extends IntegrationSpec {
         Thread.sleep(10000)
 
         then: 'The listener is notified'
-        bookEventListener.getCounter().get() > 0
+        bookEventListener.getCounter() > 0
     }
 }
