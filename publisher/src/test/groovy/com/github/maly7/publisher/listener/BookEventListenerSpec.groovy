@@ -16,6 +16,7 @@ class BookEventListenerSpec extends IntegrationSpec {
     void 'The listener should be called when creating a book'() {
         when: 'Creating a Book'
         bookRepository.save(new Book(title: 'A Storm of Swords'))
+        Thread.sleep(10000)
 
         then: 'The listener is notified'
         bookEventListener.getCounter().get() > 0
