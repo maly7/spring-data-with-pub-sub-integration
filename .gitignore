@@ -93,3 +93,5 @@ gradle-app.setting
 hs_err_pid*
 /.idea/
 /publisher/build/
+/spring-data-with-pub-sub-integration.iml
+!/gradle/wrapper/gradle-wrapper.jar
