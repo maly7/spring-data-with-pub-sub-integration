@@ -2,8 +2,19 @@ server:
   port: 8083
   context-path: /subscriber
 spring:
+  jackson:
+    serialization:
+      indent_output: true
   activemq:
-    in-memory: false
-    packages:
-      trust-all: true
-    broker-url: vm://localhost?broker.persistent=false
+    broker-url: tcp://localhost:61616
+
+endpoints:
+  actuator:
+    enabled: true
+    sensitive: false
+  configprops:
+    sensitive: false
+  beans:
+    sensitive: false
+  env:
+    sensitive: false
