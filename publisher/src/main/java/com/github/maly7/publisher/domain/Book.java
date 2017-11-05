@@ -3,6 +3,7 @@ package com.github.maly7.publisher.domain;
 import com.github.maly7.publisher.event.BookEvent;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.domain.DomainEvents;
 
 import javax.persistence.*;
@@ -59,7 +60,7 @@ public class Book {
 
     @DomainEvents
     public BookEvent domainEvent() {
-        return new BookEvent(this.id);
+        return new BookEvent(this);
     }
 
     @Override
@@ -82,6 +83,16 @@ public class Book {
                 .append(id)
                 .append(title)
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("title", title)
+                .append("authors", authors)
+                .append("labels", labels)
+                .toString();
     }
 }
 

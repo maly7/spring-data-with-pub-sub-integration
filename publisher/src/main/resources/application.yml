@@ -5,6 +5,12 @@ endpoints:
   actuator:
     enabled: true
     sensitive: false
+  configprops:
+    sensitive: false
+  beans:
+    sensitive: false
+  env:
+    sensitive: false
 
 spring:
   datasource:
@@ -19,6 +25,8 @@ spring:
   jackson:
     serialization:
       indent_output: true
+  activemq:
+    broker-url: tcp://localhost:61616
 flyway:
   baseline-version: 0
   enabled: true

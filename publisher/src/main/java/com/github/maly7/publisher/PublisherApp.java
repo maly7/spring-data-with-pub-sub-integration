@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Publisher {
+public class PublisherApp {
     public static void main(String[] args) {
-        SpringApplication.run(Publisher.class, args);
+        SpringApplication.run(PublisherApp.class, args);
     }
 }
