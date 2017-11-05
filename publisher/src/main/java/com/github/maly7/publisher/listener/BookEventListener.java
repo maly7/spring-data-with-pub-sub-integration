@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
@@ -33,12 +32,6 @@ public class BookEventListener {
     public void handleBookEvent(BookEvent bookEvent) {
         LOG.info("Received Book Event: [{}]", bookEvent);
         jmsTemplate.convertAndSend("bookEvents", bookEvent.getSource());
-    }
-
-    @JmsListener(destination = "bookEvents")
-    public void receivedJmsMessage(Object book) {
-        LOG.info("Received JMS Message: [{}]", book);
-        counter.incrementAndGet();
     }
 
     public static AtomicInteger getCounter() {
