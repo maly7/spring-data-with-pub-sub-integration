@@ -12,5 +12,9 @@ public class BookIngestService {
     @ServiceActivator(inputChannel = "bookIngestChannel")
     public void ingestBook(String book) {
         LOG.info("Received Book: [{}]", book);
+
+        // Fetch Book through Publisher API
+
+        // Save in solr repository
     }
 }

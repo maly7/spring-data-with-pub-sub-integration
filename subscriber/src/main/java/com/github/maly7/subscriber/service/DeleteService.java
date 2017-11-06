@@ -12,5 +12,6 @@ public class DeleteService {
     @ServiceActivator(inputChannel = "deleteChannel")
     public void delete(String book) {
         LOG.info("Deleting Book with id: [{}]", book);
+        // Call delete on the solr repository
     }
 }
