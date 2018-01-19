@@ -7,6 +7,9 @@ spring:
       indent_output: true
   activemq:
     broker-url: tcp://localhost:61616
+  data:
+    solr:
+      zk-host: localhost:9983
 
 endpoints:
   actuator:

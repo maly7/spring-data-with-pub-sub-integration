@@ -1,9 +1,14 @@
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-data-solr'
     compile 'org.springframework.boot:spring-boot-starter-activemq'
     compile 'org.springframework.boot:spring-boot-starter-integration'
     compile 'org.springframework.integration:spring-integration-jms'
+
+    compile 'org.springframework.data:spring-data-commons:2.0.2.RELEASE'
+    compile 'org.springframework.data:spring-data-solr:3.0.2.RELEASE'
+    compile 'org.apache.solr:solr-solrj:6.4.1'
 
     compile 'org.apache.commons:commons-lang3:3.6'
     compile 'org.apache.commons:commons-collections4:4.1'
