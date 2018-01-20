@@ -3,22 +3,23 @@ package com.github.maly7.publisher.listener
 import com.github.maly7.publisher.data.BookRepository
 import com.github.maly7.publisher.domain.Book
 import com.github.maly7.publisher.support.IntegrationSpec
+import com.github.maly7.publisher.support.MessageRecorder
 import org.springframework.beans.factory.annotation.Autowired
 
 class BookEventListenerSpec extends IntegrationSpec {
 
     @Autowired
-    BookEventListener bookEventListener
+    BookRepository bookRepository
 
     @Autowired
-    BookRepository bookRepository
+    MessageRecorder messageRecorder
 
     void 'The listener should be called when creating a book'() {
         when: 'Creating a Book'
-        bookRepository.save(new Book(title: 'A Storm of Swords'))
-        Thread.sleep(10000)
+        Book book = bookRepository.save(new Book(title: 'A Storm of Swords'))
+        Thread.sleep(1000)
 
-        then: 'The listener is notified'
-        bookEventListener.getCounter() > 0
+        then: 'The message is received'
+        messageRecorder.updates.contains(book.id)
     }
 }

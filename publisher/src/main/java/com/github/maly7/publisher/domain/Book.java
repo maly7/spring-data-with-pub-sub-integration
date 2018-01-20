@@ -1,6 +1,7 @@
 package com.github.maly7.publisher.domain;
 
 import com.github.maly7.publisher.event.BookEvent;
+import com.github.maly7.publisher.listener.BookListener;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Entity
+@EntityListeners({BookListener.class})
 public class Book {
     private Long id;
     private String title;
@@ -60,14 +62,6 @@ public class Book {
 
     public void setLabels(Set<Label> labels) {
         this.labels = labels;
-    }
-
-    @DomainEvents
-    public BookEvent domainEvent() {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("EventType", "UPDATE");
-        MessageHeaders messageHeaders = new MessageHeaders(headers);
-        return new BookEvent(new GenericMessage<>(String.valueOf(this.id), messageHeaders));
     }
 
     @Override
