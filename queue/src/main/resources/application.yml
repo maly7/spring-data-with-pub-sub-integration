@@ -1,0 +1,10 @@
+server:
+  port: 8181
+  context-path: /queue
+endpoints:
+  actuator:
+    sensitive: false
+    enabled: true
+spring:
+  activemq:
+    broker-url: tcp://localhost:61617
