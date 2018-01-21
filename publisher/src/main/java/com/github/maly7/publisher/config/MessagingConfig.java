@@ -28,7 +28,6 @@ public class MessagingConfig {
         return IntegrationFlows.from(bookUpdates())
                 .log(LoggingHandler.Level.INFO)
                 .handle(Jms.outboundAdapter(jmsConnectionFactory)
-                        .configureJmsTemplate(jmsTemplateSpec -> jmsTemplateSpec.sessionTransacted(true))
                         .destination("bookUpdates"))
                 .get();
     }

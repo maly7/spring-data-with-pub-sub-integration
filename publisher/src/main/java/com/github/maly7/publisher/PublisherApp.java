@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jms.activemq.ActiveMQProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class PublisherApp {
@@ -18,7 +17,6 @@ public class PublisherApp {
     }
 
     @Bean
-    @Profile("local")
     public BrokerService brokerService(ActiveMQProperties properties) {
         try {
             LOG.info("Starting ActiveMQ Broker on {}", properties.getBrokerUrl());

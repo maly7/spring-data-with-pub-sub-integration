@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: local
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:file:C:/Users/paula/Documents/dev/h2/pub;MODE=MYSQL;IGNORECASE=TRUE;
@@ -15,6 +13,8 @@ spring:
       indent_output: true
   jms:
     pub-sub-domain: true
+  activemq:
+    broker-url: tcp://localhost:61617
 
 server:
   port: 8082

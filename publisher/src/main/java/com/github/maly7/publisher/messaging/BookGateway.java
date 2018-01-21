@@ -7,7 +7,7 @@ import org.springframework.integration.annotation.MessagingGateway;
 public interface BookGateway {
 
     @Gateway(requestChannel = "bookUpdates")
-    String sendUpdate(String message);
+    void sendUpdate(String message);
 
     @Gateway(requestChannel = "bookDeletes")
     String sendDelete(String message);
