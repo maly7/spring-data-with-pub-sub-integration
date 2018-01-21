@@ -11,8 +11,6 @@ spring:
   jackson:
     serialization:
       indent_output: true
-  jms:
-    pub-sub-domain: true
   activemq:
     broker-url: tcp://localhost:61617
 
