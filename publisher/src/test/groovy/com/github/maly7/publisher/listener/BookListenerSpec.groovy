@@ -6,14 +6,14 @@ import com.github.maly7.publisher.support.IntegrationSpec
 import com.github.maly7.publisher.support.MessageRecorder
 import org.springframework.beans.factory.annotation.Autowired
 
-class BookEventListenerSpec extends IntegrationSpec {
+class BookListenerSpec extends IntegrationSpec {
 
     @Autowired
     BookRepository bookRepository
 
     @Autowired
     MessageRecorder messageRecorder
-    
+
 
     void 'The listener should be called when creating a book'() {
         when: 'Creating a Book'
