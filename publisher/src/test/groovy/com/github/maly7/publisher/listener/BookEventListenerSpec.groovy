@@ -13,11 +13,11 @@ class BookEventListenerSpec extends IntegrationSpec {
 
     @Autowired
     MessageRecorder messageRecorder
+    
 
     void 'The listener should be called when creating a book'() {
         when: 'Creating a Book'
         Book book = bookRepository.save(new Book(title: 'A Storm of Swords'))
-        Thread.sleep(1000)
 
         then: 'The message is received'
         messageRecorder.updates.contains(book.id)
