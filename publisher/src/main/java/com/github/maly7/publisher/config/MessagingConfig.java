@@ -35,7 +35,9 @@ public class MessagingConfig {
     @Bean
     public IntegrationFlow bookDeletesFlow(ActiveMQConnectionFactory jmsConnectionFactory) {
         return IntegrationFlows.from(bookDeletes())
-                .handle(Jms.outboundAdapter(jmsConnectionFactory).destination("bookDeletes"))
+                .log(LoggingHandler.Level.INFO)
+                .handle(Jms.outboundAdapter(jmsConnectionFactory)
+                        .destination("bookDeletes"))
                 .get();
     }
 }
