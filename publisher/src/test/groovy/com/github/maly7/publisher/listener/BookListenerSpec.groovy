@@ -7,6 +7,7 @@ import com.github.maly7.publisher.support.MessageRecorder
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Shared
 import spock.lang.Stepwise
+import spock.lang.Timeout
 
 import java.util.concurrent.CountDownLatch
 
@@ -43,5 +44,15 @@ class BookListenerSpec extends IntegrationSpec {
 
         then: 'The message is received via jms'
         messageRecorder.updates.count { it == book.id.toString() } >= 2
+    }
+
+    @Timeout(value = 3)
+    void 'The listener should then be called when deleting the book'() {
+        when: 'Deleting a book'
+        bookRepository.delete(book.id)
+        messageRecorder.countDownLatch.await()
+
+        then: 'The message is received via jms'
+        messageRecorder.deletes.count { it == book.id.toString() } == 1
     }
 }
