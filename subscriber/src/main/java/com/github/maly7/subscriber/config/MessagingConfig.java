@@ -37,11 +37,11 @@ public class MessagingConfig {
     public IntegrationFlow inboundBookFlow(ActiveMQConnectionFactory jmsConnectionFactory) {
         return IntegrationFlows.from(
                 Jms.inboundAdapter(jmsConnectionFactory).destination("bookUpdates"))
-                .route(ingestRouter())
+                .channel("bookIngestChannel")
                 .get();
     }
 
-    @Bean
+    @Bean //TODO: re-enable this once we're using topics
     public HeaderValueRouter ingestRouter() {
         HeaderValueRouter router = new HeaderValueRouter("EventType");
         Map<String, String> channelMappings = new HashMap<>();
