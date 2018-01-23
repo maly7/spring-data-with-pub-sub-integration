@@ -5,6 +5,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-integration'
     compile 'org.springframework.integration:spring-integration-jms'
 
+    compile "de.codecentric:spring-boot-admin-starter-client:${adminVersion}"
+
     compile 'org.apache.commons:commons-lang3:3.6'
     compile 'org.apache.commons:commons-collections4:4.1'
 

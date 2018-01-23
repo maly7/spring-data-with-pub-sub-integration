@@ -1,0 +1,4 @@
+dependencies {
+    compile "de.codecentric:spring-boot-admin-server:${adminVersion}"
+    compile "de.codecentric:spring-boot-admin-server-ui:${adminVersion}"
+}
