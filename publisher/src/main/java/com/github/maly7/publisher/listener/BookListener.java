@@ -14,12 +14,17 @@ public class BookListener {
     @PostUpdate
     @PostPersist
     public void sendUpdateMessage(Book book) {
-        assert TransactionSynchronizationManager.isActualTransactionActive();
+        assertActiveTransaction();
         BeanFetcher.getBean(BookGateway.class).sendUpdate(String.valueOf(book.getId()));
     }
 
     @PostRemove
     public void sendDeleteMessage(Book book) {
+        assertActiveTransaction();
         BeanFetcher.getBean(BookGateway.class).sendDelete(String.valueOf(book.getId()));
+    }
+
+    private void assertActiveTransaction() {
+        assert TransactionSynchronizationManager.isActualTransactionActive();
     }
 }
