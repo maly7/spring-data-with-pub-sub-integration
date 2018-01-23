@@ -32,7 +32,7 @@ class BookListenerSpec extends IntegrationSpec {
         messageRecorder.countDownLatch.await()
 
         then: 'The message is received via jms'
-        messageRecorder.updates.contains(book.id.toString())
+        messageRecorder.updates.count { it == book.id.toString() } >= 1
     }
 
     void 'The listener should then be called when updating the book'() {
