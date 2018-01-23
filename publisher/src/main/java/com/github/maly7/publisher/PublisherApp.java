@@ -23,7 +23,6 @@ public class PublisherApp {
             BrokerService broker = new BrokerService();
             broker.addConnector(properties.getBrokerUrl());
             broker.setPersistent(false);
-            broker.setUseShutdownHook(false);
             broker.start();
             return broker;
         } catch (Exception e) {
