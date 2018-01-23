@@ -6,6 +6,6 @@ import org.springframework.test.context.ActiveProfiles
 import spock.lang.Specification
 
 @ActiveProfiles(profiles = 'test')
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [PublisherApp])
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [PublisherApp, TestConfig])
 class IntegrationSpec extends Specification {
 }

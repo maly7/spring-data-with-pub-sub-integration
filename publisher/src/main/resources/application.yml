@@ -1,17 +1,3 @@
-server:
-  port: 8082
-  context-path: /publisher
-endpoints:
-  actuator:
-    enabled: true
-    sensitive: false
-  configprops:
-    sensitive: false
-  beans:
-    sensitive: false
-  env:
-    sensitive: false
-
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -26,7 +12,22 @@ spring:
     serialization:
       indent_output: true
   activemq:
-    broker-url: tcp://localhost:61616
+    broker-url: tcp://localhost:61617
+
+server:
+  port: 8082
+  context-path: /publisher
+endpoints:
+  actuator:
+    enabled: true
+    sensitive: false
+  configprops:
+    sensitive: false
+  beans:
+    sensitive: false
+  env:
+    sensitive: false
+
 flyway:
   baseline-version: 0
   enabled: true

@@ -1,7 +1,5 @@
 package com.github.maly7.publisher.config;
 
-import com.github.maly7.publisher.event.BookEvent;
-import com.github.maly7.publisher.listener.BookEventListener;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,29 +7,37 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.channel.MessageChannels;
 import org.springframework.integration.dsl.jms.Jms;
+import org.springframework.integration.handler.LoggingHandler;
 import org.springframework.messaging.MessageChannel;
 
 @Configuration
 public class MessagingConfig {
 
     @Bean
-    public MessageChannel bookEventsChannel() {
-        return MessageChannels.direct("bookEventsChannel").get();
+    public MessageChannel bookUpdates() {
+        return MessageChannels.direct("bookUpdates").get();
     }
 
     @Bean
-    public IntegrationFlow bookEventFlow(ActiveMQConnectionFactory jmsConnectionFactory) {
-        return IntegrationFlows.from(bookEventsChannel())
-                .handle(Jms.outboundAdapter(jmsConnectionFactory).destination("bookEvents"))
+    public MessageChannel bookDeletes() {
+        return MessageChannels.direct("bookDeletes").get();
+    }
+
+    @Bean
+    public IntegrationFlow bookUpdatesFlow(ActiveMQConnectionFactory jmsConnectionFactory) {
+        return IntegrationFlows.from(bookUpdates())
+                .log(LoggingHandler.Level.INFO)
+                .handle(Jms.outboundAdapter(jmsConnectionFactory)
+                        .destination("bookUpdates"))
                 .get();
     }
 
     @Bean
-    public BookEventListener bookEventListener() {
-        BookEventListener listener = new BookEventListener();
-        listener.setEventTypes(BookEvent.class);
-        listener.setOutputChannel(bookEventsChannel());
-        return listener;
+    public IntegrationFlow bookDeletesFlow(ActiveMQConnectionFactory jmsConnectionFactory) {
+        return IntegrationFlows.from(bookDeletes())
+                .log(LoggingHandler.Level.INFO)
+                .handle(Jms.outboundAdapter(jmsConnectionFactory)
+                        .destination("bookDeletes"))
+                .get();
     }
-
 }
