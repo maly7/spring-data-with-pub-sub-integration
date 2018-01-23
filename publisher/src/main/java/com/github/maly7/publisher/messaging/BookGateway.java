@@ -11,7 +11,12 @@ public interface BookGateway {
      * TODO: use a default request channel for the entire class, but specific header values for
      * the various methods. ie:
      * @MessagingGateway(defaultRequestChannel = "books")
-     * @Gateway(requestChannel = "bookUpdates", headers = @GatewayHeader(name = "EventType", value = "write"))
+     *
+     * with the following on the methods:
+     *
+     * @Gateway(headers = @GatewayHeader(name = "EventType", value = "write"))
+     *
+     * @Gateway(headers = @GatewayHeader(name = "EventType", value = "delete"))
      */
 
     @Gateway(requestChannel = "bookUpdates", headers = @GatewayHeader(name = "EventType", value = "write"))
