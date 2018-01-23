@@ -1,5 +1,9 @@
 spring:
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+  boot:
+    admin:
+      client:
+        enabled: false
 logging:
   level: trace
