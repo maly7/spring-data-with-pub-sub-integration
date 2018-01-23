@@ -12,6 +12,7 @@ import spock.lang.Timeout
 import java.util.concurrent.CountDownLatch
 
 @Stepwise
+@Timeout(value = 10)
 class BookListenerSpec extends IntegrationSpec {
 
     @Autowired
@@ -46,7 +47,6 @@ class BookListenerSpec extends IntegrationSpec {
         messageRecorder.updates.count { it == book.id.toString() } >= 2
     }
 
-    @Timeout(value = 3)
     void 'The listener should then be called when deleting the book'() {
         when: 'Deleting a book'
         bookRepository.delete(book.id)

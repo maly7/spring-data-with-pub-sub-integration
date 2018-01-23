@@ -10,5 +10,5 @@ public interface BookGateway {
     void sendUpdate(String message);
 
     @Gateway(requestChannel = "bookDeletes")
-    String sendDelete(String message);
+    void sendDelete(String message);
 }
