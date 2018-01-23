@@ -2,6 +2,7 @@ package com.github.maly7.publisher.listener
 
 import com.github.maly7.publisher.data.BookRepository
 import com.github.maly7.publisher.domain.Book
+import com.github.maly7.publisher.service.LinksHelper
 import com.github.maly7.publisher.support.IntegrationSpec
 import com.github.maly7.publisher.support.MessageRecorder
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,6 +24,9 @@ class BookListenerSpec extends IntegrationSpec {
 
     @Autowired
     MessageRecorder messageRecorder
+
+    @Autowired
+    LinksHelper linksHelper
 
     @Shared
     Book book
