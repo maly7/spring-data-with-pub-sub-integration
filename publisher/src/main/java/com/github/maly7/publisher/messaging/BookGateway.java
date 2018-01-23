@@ -21,6 +21,6 @@ public interface BookGateway {
     @Gateway(requestChannel = "bookUpdates", payloadExpression = "@linksHelper.selfLinkToBook(#args[0]).href")
     void sendUpdate(String bookId);
 
-    @Gateway(requestChannel = "bookDeletes")
+    @Gateway(requestChannel = "bookDeletes", payloadExpression = "@linksHelper.selfLinkToBook(#args[0]).href")
     void sendDelete(String bookId);
 }

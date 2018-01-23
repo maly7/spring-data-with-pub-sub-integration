@@ -46,7 +46,7 @@ class BookListenerSpec extends IntegrationSpec {
         messageRecorder.countDownLatch.await()
 
         then: 'The message is received via jms'
-        messageRecorder.updates.count { it == linksHelper.selfLinkToBook(book.id).href } >= 1
+        messageRecorder.updates.count { it == linksHelper.selfLinkToBook(book.id).href } == 1
     }
 
     void 'The listener should then be called when updating the book'() {
@@ -56,7 +56,7 @@ class BookListenerSpec extends IntegrationSpec {
         messageRecorder.countDownLatch.await()
 
         then: 'The message is received via jms'
-        messageRecorder.updates.count { it == linksHelper.selfLinkToBook(book.id).href } >= 2
+        messageRecorder.updates.count { it == linksHelper.selfLinkToBook(book.id).href } == 2
     }
 
     void 'The listener should then be called when deleting the book'() {
@@ -65,6 +65,6 @@ class BookListenerSpec extends IntegrationSpec {
         messageRecorder.countDownLatch.await()
 
         then: 'The message is received via jms'
-        messageRecorder.deletes.count { it == book.id.toString() } == 1
+        messageRecorder.deletes.count { it == linksHelper.selfLinkToBook(book.id).href } == 1
     }
 }
