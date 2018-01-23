@@ -6,6 +6,7 @@ dependencies {
     compile 'org.springframework.integration:spring-integration-jms'
     compile 'org.springframework.integration:spring-integration-event'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-hateoas'
 
     compile "de.codecentric:spring-boot-admin-starter-client:${adminVersion}"
 

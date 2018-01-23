@@ -5,6 +5,9 @@ import com.github.maly7.publisher.domain.Book
 import com.github.maly7.publisher.support.IntegrationSpec
 import com.github.maly7.publisher.support.MessageRecorder
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.mock.web.MockHttpServletRequest
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.context.request.ServletRequestAttributes
 import spock.lang.Shared
 import spock.lang.Stepwise
 import spock.lang.Timeout
@@ -23,6 +26,11 @@ class BookListenerSpec extends IntegrationSpec {
 
     @Shared
     Book book
+
+    void setup() {
+        ServletRequestAttributes requestAttributes = new ServletRequestAttributes(new MockHttpServletRequest())
+        RequestContextHolder.setRequestAttributes(requestAttributes)
+    }
 
     void cleanup() {
         messageRecorder.countDownLatch = new CountDownLatch(1)
