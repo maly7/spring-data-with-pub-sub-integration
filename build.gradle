@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '1.5.9.RELEASE'
+        adminVersion = '1.5.6'
     }
 
     repositories {
