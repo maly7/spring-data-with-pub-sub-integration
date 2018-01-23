@@ -1,7 +1,6 @@
 package com.github.maly7.publisher.messaging;
 
 import org.springframework.integration.annotation.Gateway;
-import org.springframework.integration.annotation.GatewayHeader;
 import org.springframework.integration.annotation.MessagingGateway;
 
 @MessagingGateway
@@ -19,9 +18,9 @@ public interface BookGateway {
      * @Gateway(headers = @GatewayHeader(name = "EventType", value = "delete"))
      */
 
-    @Gateway(requestChannel = "bookUpdates", headers = @GatewayHeader(name = "EventType", value = "write"))
-    void sendUpdate(String message);
+    @Gateway(requestChannel = "bookUpdates", payloadExpression = "@linksHelper.selfLinkToBook(#args[0]).href")
+    void sendUpdate(String bookId);
 
     @Gateway(requestChannel = "bookDeletes")
-    void sendDelete(String message);
+    void sendDelete(String bookId);
 }

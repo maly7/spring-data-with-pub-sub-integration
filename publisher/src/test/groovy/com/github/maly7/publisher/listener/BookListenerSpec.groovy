@@ -2,9 +2,13 @@ package com.github.maly7.publisher.listener
 
 import com.github.maly7.publisher.data.BookRepository
 import com.github.maly7.publisher.domain.Book
+import com.github.maly7.publisher.service.LinksHelper
 import com.github.maly7.publisher.support.IntegrationSpec
 import com.github.maly7.publisher.support.MessageRecorder
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.mock.web.MockHttpServletRequest
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.context.request.ServletRequestAttributes
 import spock.lang.Shared
 import spock.lang.Stepwise
 import spock.lang.Timeout
@@ -21,8 +25,16 @@ class BookListenerSpec extends IntegrationSpec {
     @Autowired
     MessageRecorder messageRecorder
 
+    @Autowired
+    LinksHelper linksHelper
+
     @Shared
     Book book
+
+    void setup() {
+        ServletRequestAttributes requestAttributes = new ServletRequestAttributes(new MockHttpServletRequest())
+        RequestContextHolder.setRequestAttributes(requestAttributes)
+    }
 
     void cleanup() {
         messageRecorder.countDownLatch = new CountDownLatch(1)
@@ -34,7 +46,7 @@ class BookListenerSpec extends IntegrationSpec {
         messageRecorder.countDownLatch.await()
 
         then: 'The message is received via jms'
-        messageRecorder.updates.count { it == book.id.toString() } >= 1
+        messageRecorder.updates.count { it == linksHelper.selfLinkToBook(book.id).href } >= 1
     }
 
     void 'The listener should then be called when updating the book'() {
@@ -44,7 +56,7 @@ class BookListenerSpec extends IntegrationSpec {
         messageRecorder.countDownLatch.await()
 
         then: 'The message is received via jms'
-        messageRecorder.updates.count { it == book.id.toString() } >= 2
+        messageRecorder.updates.count { it == linksHelper.selfLinkToBook(book.id).href } >= 2
     }
 
     void 'The listener should then be called when deleting the book'() {
