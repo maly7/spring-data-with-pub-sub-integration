@@ -10,7 +10,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
  * Helper class for building links in the payload expression, in reality this should
- * probably use {@link org.springframework.hateoas.EntityLinks}
+ * probably be replaced by {@link org.springframework.hateoas.EntityLinks}
  */
 @Service
 public class LinksHelper {
