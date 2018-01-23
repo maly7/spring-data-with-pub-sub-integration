@@ -36,7 +36,7 @@ public class MessagingConfig {
     @Bean
     public IntegrationFlow inboundBookFlow(ActiveMQConnectionFactory jmsConnectionFactory) {
         return IntegrationFlows.from(
-                Jms.inboundAdapter(jmsConnectionFactory).destination("bookEvents"))
+                Jms.inboundAdapter(jmsConnectionFactory).destination("bookUpdates"))
                 .route(ingestRouter())
                 .get();
     }

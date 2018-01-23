@@ -19,13 +19,14 @@ public class PublisherApp {
     @Bean
     public BrokerService brokerService(ActiveMQProperties properties) {
         try {
+            LOG.info("Starting ActiveMQ Broker on {}", properties.getBrokerUrl());
             BrokerService broker = new BrokerService();
             broker.addConnector(properties.getBrokerUrl());
             broker.setPersistent(false);
             broker.start();
             return broker;
         } catch (Exception e) {
-            LOG.debug("Looks like something else is already bound to [{}}, we'll assume we can use that.", properties.getBrokerUrl(), e);
+            LOG.info("Looks like something else is already bound to [{}}, we'll assume we can use that.", properties.getBrokerUrl(), e);
             return null;
         }
     }
