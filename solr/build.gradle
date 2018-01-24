@@ -1,5 +1,6 @@
 apply plugin: 'com.bmuschko.docker-remote-api'
 
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 task copyConfig(type: Copy) {
@@ -25,6 +26,14 @@ task dockerComposeUp(type: Exec) {
     commandLine 'docker-compose', 'up', '--build'
 }
 
-createDockerfile.dependsOn copyConfig, copyScripts
+task dockerComposeDown(type: Exec) {
+    commandLine 'docker-compose', 'down'
+}
 
+task run {
+    dependsOn dockerComposeDown, dockerComposeUp
+    dockerComposeUp.mustRunAfter dockerComposeDown
+}
+
+createDockerfile.dependsOn copyConfig, copyScripts
 dockerComposeUp.dependsOn createDockerfile
