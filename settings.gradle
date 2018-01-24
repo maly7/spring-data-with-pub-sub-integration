@@ -2,4 +2,5 @@ rootProject.name = 'spring-data-with-pub-sub-integration'
 include 'publisher'
 include 'subscriber'
 include 'admin'
+include 'solr'
 

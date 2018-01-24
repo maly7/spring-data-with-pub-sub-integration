@@ -1,0 +1,24 @@
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+task copyConfig(type: Copy) {
+    from './config'
+    into './build/'
+}
+
+task copyScripts(type: Copy) {
+    from './scripts'
+    into './build/scripts'
+}
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('./build/Dockerfile')
+    from 'solr:6.6'
+    environmentVariable('SOLR_HOME', '/opt/solr/server/solr/')
+    addFile("./scripts", '/opt/docker-solr/scripts')
+    runCommand('make-books-core')
+    addFile('./solr/books/conf/', '/opt/solr/server/solr/books/conf/')
+}
+
+createDockerfile.dependsOn copyConfig, copyScripts
