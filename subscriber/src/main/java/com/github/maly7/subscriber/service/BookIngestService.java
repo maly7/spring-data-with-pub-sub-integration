@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.integration.json.JsonPathUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,9 +21,6 @@ public class BookIngestService {
         LOG.info("Received Book href: [{}]", bookHref);
 
         ResponseEntity<Book> book = restTemplate.getForEntity(bookHref, Book.class);
-
-        ResponseEntity<String> bookJson = restTemplate.getForEntity(bookHref, String.class);
-
         LOG.info("Fetched book: [{}] from publisher.", book);
 
         // Save in solr repository
