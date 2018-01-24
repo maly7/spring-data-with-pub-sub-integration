@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema name="tweet" version="1.6">
+<schema name="books" version="1.6">
 
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true"/>
     <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
