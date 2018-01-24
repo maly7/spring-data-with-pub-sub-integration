@@ -21,4 +21,10 @@ task createDockerfile(type: Dockerfile) {
     addFile('./solr/books/conf/', '/opt/solr/server/solr/books/conf/')
 }
 
+task dockerComposeUp(type: Exec) {
+    commandLine 'docker-compose', 'up', '--build'
+}
+
 createDockerfile.dependsOn copyConfig, copyScripts
+
+dockerComposeUp.dependsOn createDockerfile

@@ -34,9 +34,3 @@ configure(subprojects.findAll { it.name != 'solr' }) {
         jcenter()
     }
 }
-
-task dockerComposeUp(type: Exec) {
-    dependsOn getTasksByName('createDockerfile', true)
-
-    commandLine 'docker-compose', 'up', '--build'
-}
