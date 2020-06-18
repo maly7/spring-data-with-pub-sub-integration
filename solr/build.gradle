@@ -1,0 +1,60 @@
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+def dockerRegistry = 'registry.gitlab.com/maly7/docker-stuff'
+
+task copyConfig(type: Copy) {
+    from './config'
+    into './build/'
+}
+
+task copyScripts(type: Copy) {
+    from './scripts'
+    into './build/scripts'
+}
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('./build/Dockerfile')
+    from 'solr:6.6'
+    environmentVariable('SOLR_HOME', '/opt/solr/server/solr/')
+    addFile("./scripts", '/opt/docker-solr/scripts')
+    runCommand('make-books-core')
+    addFile('./books/conf/', '/opt/solr/server/solr/books/conf/')
+}
+
+task dockerComposeUp(type: Exec) {
+    commandLine 'docker-compose', 'up', '-d', '--build'
+}
+
+task dockerComposeDown(type: Exec) {
+    commandLine 'docker-compose', 'down'
+}
+
+task cleanDockerfile(type: Delete) {
+    delete 'build/Dockerfile'
+}
+
+task buildDockerImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "${dockerRegistry}${project.name}:${project.version}"
+}
+
+task pushDockerImage(type: DockerPushImage) {
+    dependsOn buildDockerImage
+    imageName = "${dockerRegistry}${project.name}:${project.version}"
+}
+
+
+task run {
+    dependsOn dockerComposeDown, dockerComposeUp
+    dockerComposeUp.mustRunAfter dockerComposeDown
+}
+
+createDockerfile.dependsOn copyConfig, copyScripts
+dockerComposeDown.dependsOn createDockerfile
+dockerComposeUp.dependsOn createDockerfile

@@ -1,17 +1,12 @@
 package com.github.maly7.publisher.domain;
 
-import com.github.maly7.publisher.event.BookEvent;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.maly7.publisher.listener.BookListener;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.springframework.data.domain.DomainEvents;
-import org.springframework.messaging.MessageHeaders;
-import org.springframework.messaging.support.GenericMessage;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -23,6 +18,7 @@ public class Book {
     private Set<Label> labels;
 
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public Long getId() {
